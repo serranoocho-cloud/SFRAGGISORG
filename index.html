@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sfraggis - Exclusivo en Pantalones de Mujer</title>
+    <!-- FONTAWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsubI1xnS2EsbFC7IKOtHXy3o2yp5zNGHX8-mLk-0nVw&s" type="image/x-icon">
+    <!-- HOJA DE ESTILOS EXTERNA -->
+    <link rel="stylesheet" href="./css/Estilos.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE NAVEGACIÓN -->
+    <header class="header-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="#inicio">sfraggis</a>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contáctenos</a></li>
+                </ul>
+            </nav>
+            <div class="nav-cart" onclick="toggleCart()">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN DE INICIO / HERO -->
+    <section id="inicio" class="hero-section">
+        <div class="hero-content">
+            <h1>sfraggis</h1>
+            <p>Diseño, sofisticación y comodidad en cada silueta. Explora nuestra exclusiva colección de pantalones para mujer.</p>
+            <a href="#catalogo" class="btn-explore">Ver Colección</a>
+        </div>
+    </section>
+
+    <!-- CONTENEDOR PRINCIPAL DEL CATALOGO -->
+    <main id="catalogo" class="main-container">
+        
+        <div class="catalog-header">
+            <h2>Nuestra Colección</h2>
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterCategory('todos')">Todos</button>
+                <button class="filter-btn" onclick="filterCategory('jeans')">Jeans</button>
+                <button class="filter-btn" onclick="filterCategory('sudaderas')">Sudaderas</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Los productos se cargan dinámicamente -->
+        </div>
+
+    </main>
+
+    <!-- SECCIÓN NOSOTROS -->
+    <section id="nosotros" class="about-section">
+        <div class="about-content">
+            <h2>Sobre sfraggis</h2>
+            <p>En <strong>sfraggis</strong> redefinimos la elegancia y la versatilidad femenina. Nos especializamos exclusivamente en el diseño de pantalones que combinan las últimas tendencias con cortes impecables, tejidos de alta calidad y un confort absoluto para acompañar a la mujer moderna.</p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONTÁCTENOS -->
+    <section id="contacto" class="contact-section">
+        <div class="contact-container">
+            <h2>Contáctenos</h2>
+            <p>¿Tienes dudas sobre tallas, envíos o disponibilidad? Escríbenos y nuestro equipo te atenderá de inmediato.</p>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Mensaje enviado con éxito! Nos pondremos en contacto contigo pronto.');">
+                <div class="form-group">
+                    <input type="text" placeholder="Tu Nombre" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Tu Correo Electrónico" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="4" placeholder="Escribe tu mensaje..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CARRITO DESLIZANTE -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Tu Bolsa de Compras</h3>
+            <button class="close-cart" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p class="empty-cart-msg">Tu bolsa está vacía</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Subtotal:</span>
+                <span id="cart-total-price">$0.00</span>
+            </div>
+            <button class="btn-checkout" onclick="checkoutAlert()">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer">
+        <p>&copy; 2026 sfraggis. Todos los derechos reservados.</p>
+        <div class="social-icons">
+            <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://web.whatsapp.com" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE PRODUCTOS -->
+    <script>
+        const products = [
+            // --- JEANS (5 items) ---
+            { id: 1, name: "jean1", category: "jeans", price: 79.99, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN46nDhMd_KCLrN7p16CdT26SiHxa1rQELdEDmMl34mA&s=10" },
+            { id: 3, name: "jean2", category: "jeans", price: 82.00, image: "https://images.unsplash.com/photo-1560243563-062bfc001d68?auto=format&fit=crop&w=600&q=80" },
+            { id: 4, name: "jean3", category: "jeans", price: 69.99, image: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80" },
+            { id: 5, name: "jean4", category: "jeans", price: 76.00, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJgHAFEg60jv4C3sTUffLVXOi1C05rsWtSrI0arHCP8A&s=10" },
+
+            // --- SUDADERAS (5 items) ---
+            { id: 6, name: "sudadera1", category: "sudaderas", price: 95.00, image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" },
+            { id: 7, name: "sudadera2", category: "sudaderas", price: 55.00, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpuKwGfvRpiriVio57O0MUWB-k6D3osKWdD3DmT95eyw&s=10" },
+            { id: 8, name: "sudadera3", category: "sudaderas", price: 68.00, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG9wjpuoLTfbqfhUgcmGrhLWu2IVDN9jPg5iKrU57SWg&s=10" },
+            { id: 9, name: "sudadera4", category: "sudaderas", price: 62.00, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCyVdsnzHVMIeubclPf1QaztG3021AMDK-UHmO2c0yLQ&s=10" },
+            { id: 10, name: "sudadera5", category: "sudaderas", price: 59.99, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlgMKfRtJx7BxNjPsp2DnuEDfcnlM3R1N_EnaobKTEnA&s" },
+        ];
+
+        let cart = [];
+
+        function renderProducts(category = 'todos') {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'todos' ? products : products.filter(p => p.category === category);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${p.image}" alt="${p.name}">
+                    </div>
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <p class="product-price">$${p.price.toFixed(2)}</p>
+                        <div class="size-selector">
+                            <label>Talla:</label>
+                            <select id="size-${p.id}">
+                                <option value="XS">XS</option>
+                                <option value="S" selected>S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <button class="btn-add-cart" onclick="addToCart(${p.id})">Agregar al Carrito</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts(cat);
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-drawer').classList.toggle('open');
+            document.getElementById('cart-overlay').classList.toggle('open');
+        }
+
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const size = document.getElementById(`size-${id}`).value;
+            
+            const existing = cart.find(item => item.id === id && item.size === size);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...product, size, quantity: 1 });
+            }
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const totalPriceEl = document.getElementById('cart-total-price');
+
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Tu bolsa está vacía</p>';
+                totalPriceEl.textContent = '$0.00';
+                return;
+            }
+
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p>Talla: <strong>${item.size}</strong></p>
+                        <p>$${item.price.toFixed(2)} x ${item.quantity}</p>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                cartItemsContainer.appendChild(div);
+            });
+
+            totalPriceEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function checkoutAlert() {
+            if (cart.length === 0) {
+                alert('Tu bolsa está vacía.');
+                return;
+            }
+            alert('Aviso: El sitio web se encuentra en modo de exhibición. Próximamente habilitaremos compras en línea. ¡Gracias por elegir sfraggis!');
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        renderProducts();
+    </script>
+<!-- BOTÓN Y MENÚ DESPLEGABLE DE CUENTA -->
+<div class="user-menu-container">
+    <button class="nav-user-btn" onclick="toggleUserDropdown(event)">
+        <i class="fa-solid fa-user"></i>
+    </button>
+    <div class="user-dropdown-menu" id="user-dropdown">
+        <a href="#" onclick="openAuthModal('login'); event.preventDefault();">Iniciar Sesión</a>
+        <a href="#" onclick="openAuthModal('register'); event.preventDefault();">Registrarse</a>
+    </div>
+</div>
+<!-- MODAL DE AUTENTICACIÓN -->
+<div class="auth-overlay" id="auth-overlay" onclick="closeAuthModal()"></div>
+<div class="auth-modal" id="auth-modal">
+    <button class="close-auth" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
+    
+    <div class="auth-tabs">
+        <button class="tab-btn active" onclick="switchTab('login')" id="tab-login">Iniciar Sesión</button>
+        <button class="tab-btn" onclick="switchTab('register')" id="tab-register">Registrarse</button>
+    </div>
+
+    <!-- Formulario de Iniciar Sesión -->
+    <form id="login-form" class="auth-form active" onsubmit="event.preventDefault(); alert('¡Sesión iniciada con éxito!'); closeAuthModal();">
+        <div class="form-group">
+            <input type="email" placeholder="Correo Electrónico" required>
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn-auth">Entrar</button>
+    </form>
+
+    <!-- Formulario de Registro -->
+    <form id="register-form" class="auth-form" onsubmit="event.preventDefault(); alert('¡Cuenta creada con éxito!'); closeAuthModal();">
+        <div class="form-group">
+            <input type="text" placeholder="Nombre Completo" required>
+        </div>
+        <div class="form-group">
+            <input type="email" placeholder="Correo Electrónico" required>
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn-auth">Crear Cuenta</button>
+    </form>
+</div>
+</body>
+</html>
